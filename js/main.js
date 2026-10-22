@@ -328,6 +328,7 @@
     }
 
     let characterIndex = 0;
+    let lastLetterIndex = 0;
 
     textNodes.forEach((node) => {
       const fragment = document.createDocumentFragment();
@@ -343,6 +344,7 @@
         letter.className = 'type-letter';
         letter.textContent = character;
         letter.style.setProperty('--type-index', characterIndex);
+        lastLetterIndex = characterIndex;
         fragment.appendChild(letter);
         characterIndex += 1;
       });
@@ -350,10 +352,28 @@
       node.parentNode.replaceChild(fragment, node);
     });
 
-    title.classList.add('type-ready');
+    // Duração real da digitação (delay inicial + último caractere + animação).
+    const typingDuration = 250 + lastLetterIndex * 55 + 600;
+    let restartTimer = null;
+    let completeTimer = null;
 
-    // Garante o texto visível ao final, mesmo se alguma animação for interrompida.
-    window.setTimeout(() => title.classList.add('typing-complete'), 4200);
+    const runTypewriter = () => {
+      window.clearTimeout(restartTimer);
+      window.clearTimeout(completeTimer);
+
+      title.classList.remove('type-ready', 'typing-complete');
+      void title.offsetWidth;
+      title.classList.add('type-ready');
+
+      completeTimer = window.setTimeout(() => {
+        title.classList.add('typing-complete');
+      }, typingDuration + 30);
+
+      // Um segundo de pausa com o título totalmente visível, depois recomeça.
+      restartTimer = window.setTimeout(runTypewriter, typingDuration + 1000);
+    };
+
+    runTypewriter();
   };
 
   setupTypewriter();
