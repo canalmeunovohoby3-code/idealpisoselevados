@@ -36,8 +36,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="preload" as="image" href="assets/images/fotohero.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="css/styles.css?v=20261022-18">
-  <link rel="stylesheet" href="css/reduced-motion.css?v=20261022-18" media="(prefers-reduced-motion: reduce)" id="reduced-motion-css">
+  <link rel="stylesheet" href="css/styles.css?v=20261022-22">
+  <link rel="stylesheet" href="css/reduced-motion.css?v=20261022-22" media="(prefers-reduced-motion: reduce)" id="reduced-motion-css">
 
   <script>
     (function () {
@@ -539,6 +539,99 @@
     </section>
 
     <!-- ============================================================
+         FORMULÁRIO DE ORÇAMENTO
+         As opções do select espelham os serviços da seção Nossos Serviços.
+         ============================================================ -->
+    <section class="section quote" id="orcamento" aria-labelledby="quote-title">
+      <div class="container quote-grid">
+        <div class="quote-copy" data-reveal="left">
+          <p class="eyebrow">Solicitar orçamento</p>
+          <h2 id="quote-title">Conte um pouco sobre o <em>seu projeto</em>.</h2>
+          <p class="quote-lead">Preencha os dados abaixo e envie sua solicitação diretamente para a Ideal Pisos pelo WhatsApp.</p>
+
+          <ul class="quote-points">
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>
+              Atendimento em São Paulo — SP
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>
+              Envio direto pelo WhatsApp
+            </li>
+          </ul>
+
+          <a class="text-link quote-direct" href="https://wa.me/5511979605845?text=Ol%C3%A1!%20Conheci%20a%20Ideal%20Pisos%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+            Prefere falar agora? Chame no WhatsApp
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="quote-card" data-reveal="right" data-reveal-delay=".08">
+          <div class="quote-card-head">
+            <span class="quote-card-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                <path d="M6 3h8l4 4v14H6z"/>
+                <path d="M14 3v4h4M9 11h6M9 15h6"/>
+              </svg>
+            </span>
+            <div>
+              <h3>Peça seu orçamento</h3>
+              <p>Seus dados serão enviados para o WhatsApp da Ideal Pisos.</p>
+            </div>
+          </div>
+
+          <form class="quote-form" data-quote-form novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="quote-name">Nome completo <span class="required-mark" aria-hidden="true">*</span></label>
+                <input id="quote-name" name="name" type="text" autocomplete="name" placeholder="Seu nome completo" minlength="2" required aria-describedby="quote-name-error">
+                <p class="form-error" id="quote-name-error"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="quote-phone">WhatsApp <span class="required-mark" aria-hidden="true">*</span></label>
+                <input id="quote-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 97960-5845" maxlength="15" required aria-describedby="quote-phone-error">
+                <p class="form-error" id="quote-phone-error"></p>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="quote-service">Tipo de serviço <span class="required-mark" aria-hidden="true">*</span></label>
+              <div class="select-wrap">
+                <select id="quote-service" name="service" required aria-describedby="quote-service-error">
+                  <option value="" selected disabled>Selecione o serviço</option>
+                  <option value="Piso elevado">Piso elevado</option>
+                  <option value="Carpete">Carpete</option>
+                  <option value="Piso vinílico">Piso vinílico</option>
+                  <option value="Rodapés">Rodapés</option>
+                </select>
+                <svg class="select-chevron icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+              <p class="form-error" id="quote-service-error"></p>
+            </div>
+
+            <button class="btn btn--whatsapp quote-submit" type="submit">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              Solicitar orçamento pelo WhatsApp
+            </button>
+
+            <p class="quote-note">Ao enviar, você será direcionado ao WhatsApp da Ideal Pisos.</p>
+            <p class="quote-status" data-quote-status role="status" aria-live="polite"></p>
+
+            <noscript>
+              <p class="quote-noscript">
+                Ative o JavaScript para usar o formulário ou
+                <a href="https://wa.me/5511979605845?text=Ol%C3%A1!%20Conheci%20a%20Ideal%20Pisos%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener">fale diretamente pelo WhatsApp</a>.
+              </p>
+            </noscript>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
          CHAMADA PARA ORÇAMENTO
          ============================================================ -->
     <section class="cta-band" aria-labelledby="cta-title">
@@ -698,6 +791,7 @@
             <li><a href="#servicos">Serviços</a></li>
             <li><a href="#galeria">Galeria de projetos</a></li>
             <li><a href="#sobre">Sobre a empresa</a></li>
+            <li><a href="#orcamento">Solicitar orçamento</a></li>
             <li><a href="#contato">Contato</a></li>
           </ul>
         </nav>
@@ -796,9 +890,14 @@
     </div>
   </dialog>
 
-  <script src="js/main.js?v=20261022-18" defer></script>
+  <script src="js/main.js?v=20261022-22" defer></script>
 </body>
 </html>
+
+
+
+
+
 
 
 

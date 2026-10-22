@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   'use strict';
 
   const body = document.body;
@@ -686,6 +686,144 @@
   setupPointerEffects();
 
   /* ---------------------------------------------------------------
+     Formulário de orçamento
+     --------------------------------------------------------------- */
+
+  const quoteForm = document.querySelector('[data-quote-form]');
+
+  if (quoteForm) {
+    const nameField = quoteForm.querySelector('#quote-name');
+    const phoneField = quoteForm.querySelector('#quote-phone');
+    const serviceField = quoteForm.querySelector('#quote-service');
+    const formStatus = quoteForm.querySelector('[data-quote-status]');
+
+    const formatPhone = (value) => {
+      const digits = value.replace(/\D/g, '').slice(0, 11);
+      if (!digits) return '';
+      if (digits.length <= 2) return `(${digits}`;
+
+      const ddd = digits.slice(0, 2);
+      const number = digits.slice(2);
+
+      if (number.length <= 4) return `(${ddd}) ${number}`;
+      if (digits.length <= 10) {
+        return `(${ddd}) ${number.slice(0, 4)}-${number.slice(4)}`;
+      }
+
+      return `(${ddd}) ${number.slice(0, 5)}-${number.slice(5)}`;
+    };
+
+    const setFieldError = (field, message) => {
+      if (!field) return;
+      const wrapper = field.closest('.form-field');
+      const error = wrapper ? wrapper.querySelector('.form-error') : null;
+
+      if (wrapper) wrapper.classList.add('is-invalid');
+      field.setAttribute('aria-invalid', 'true');
+      if (error) error.textContent = message;
+    };
+
+    const clearFieldError = (field) => {
+      if (!field) return;
+      const wrapper = field.closest('.form-field');
+      const error = wrapper ? wrapper.querySelector('.form-error') : null;
+
+      if (wrapper) wrapper.classList.remove('is-invalid');
+      field.removeAttribute('aria-invalid');
+      if (error) error.textContent = '';
+    };
+
+    const clearFormStatus = () => {
+      if (!formStatus) return;
+      formStatus.textContent = '';
+      formStatus.dataset.state = '';
+    };
+
+    if (phoneField) {
+      phoneField.addEventListener('input', () => {
+        const caret = phoneField.selectionStart || 0;
+        const digitsBeforeCaret = phoneField.value.slice(0, caret).replace(/\D/g, '').length;
+        phoneField.value = formatPhone(phoneField.value);
+
+        let position = 0;
+        let seenDigits = 0;
+        while (position < phoneField.value.length && seenDigits < digitsBeforeCaret) {
+          if (/\d/.test(phoneField.value[position])) seenDigits += 1;
+          position += 1;
+        }
+
+        phoneField.setSelectionRange(position, position);
+        clearFieldError(phoneField);
+        clearFormStatus();
+      });
+    }
+
+    if (nameField) {
+      nameField.addEventListener('input', () => {
+        clearFieldError(nameField);
+        clearFormStatus();
+      });
+    }
+
+    if (serviceField) {
+      serviceField.addEventListener('change', () => {
+        clearFieldError(serviceField);
+        clearFormStatus();
+      });
+    }
+
+    quoteForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const name = nameField ? nameField.value.trim().replace(/\s+/g, ' ') : '';
+      const phone = phoneField ? phoneField.value.trim() : '';
+      const phoneDigits = phone.replace(/\D/g, '');
+      const service = serviceField ? serviceField.value : '';
+      let firstInvalidField = null;
+
+      if (!name || name.length < 2) {
+        setFieldError(nameField, 'Informe seu nome completo.');
+        firstInvalidField = firstInvalidField || nameField;
+      } else {
+        clearFieldError(nameField);
+      }
+
+      if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+        setFieldError(phoneField, 'Informe um WhatsApp válido com DDD.');
+        firstInvalidField = firstInvalidField || phoneField;
+      } else {
+        clearFieldError(phoneField);
+      }
+
+      if (!service) {
+        setFieldError(serviceField, 'Selecione o tipo de serviço.');
+        firstInvalidField = firstInvalidField || serviceField;
+      } else {
+        clearFieldError(serviceField);
+      }
+
+      if (firstInvalidField) {
+        if (formStatus) {
+          formStatus.textContent = 'Revise os campos destacados.';
+          formStatus.dataset.state = 'error';
+        }
+        firstInvalidField.focus();
+        return;
+      }
+
+      const message = `Olá! Meu nome é ${name}, meu WhatsApp é ${phone} e gostaria de solicitar um orçamento para o serviço de ${service}. Aguardo o contato!`;
+      const whatsappUrl = `https://wa.me/5511979605845?text=${encodeURIComponent(message)}`;
+
+      if (formStatus) {
+        formStatus.textContent = 'Abrindo o WhatsApp com sua solicitação...';
+        formStatus.dataset.state = 'success';
+      }
+
+      window.location.href = whatsappUrl;
+    });
+  }
+
+  /* ---------------------------------------------------------------
      Preferência de animações (ativa/desativa com recarregamento)
      --------------------------------------------------------------- */
 
@@ -743,3 +881,4 @@
 
   document.documentElement.classList.add('reveal-ready');
 })();
+
