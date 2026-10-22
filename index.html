@@ -36,8 +36,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="preload" as="image" href="assets/images/fotohero.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="css/styles.css?v=20261022-22">
-  <link rel="stylesheet" href="css/reduced-motion.css?v=20261022-22" media="(prefers-reduced-motion: reduce)" id="reduced-motion-css">
+  <link rel="stylesheet" href="css/styles.css?v=20261022-23">
+  <link rel="stylesheet" href="css/reduced-motion.css?v=20261022-23" media="(prefers-reduced-motion: reduce)" id="reduced-motion-css">
 
   <script>
     (function () {
@@ -77,23 +77,16 @@
         // URLSearchParams indisponível: mantém a preferência existente.
       }
 
-      var systemReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var reduced = storedPreference === 'on'
-        ? false
-        : storedPreference === 'off'
-          ? true
-          : systemReduced;
+      // A experiência animada é o padrão do site. O visitante pode reduzir
+      // o movimento pelo controle no rodapé; a escolha fica salva no navegador.
+      var reduced = storedPreference === 'off';
 
       root.classList.add('js');
       if (reduced) root.classList.add('reduced-motion');
 
       var reducedStylesheet = document.getElementById('reduced-motion-css');
       if (reducedStylesheet) {
-        if (storedPreference === 'on') {
-          reducedStylesheet.media = 'not all';
-        } else if (storedPreference === 'off') {
-          reducedStylesheet.media = 'all';
-        }
+        reducedStylesheet.media = reduced ? 'all' : 'not all';
       }
 
       window.setTimeout(function () {
@@ -890,9 +883,10 @@
     </div>
   </dialog>
 
-  <script src="js/main.js?v=20261022-22" defer></script>
+  <script src="js/main.js?v=20261022-23" defer></script>
 </body>
 </html>
+
 
 
 
