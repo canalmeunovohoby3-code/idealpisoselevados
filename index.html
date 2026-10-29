@@ -35,59 +35,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="preload" as="image" href="assets/images/fotohero.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="css/styles.css?v=20261022-23">
-  <link rel="stylesheet" href="css/reduced-motion.css?v=20261022-23" media="(prefers-reduced-motion: reduce)" id="reduced-motion-css">
+  <link rel="preload" as="image" href="assets/images/fotohero.PNG" fetchpriority="high">
+  <link rel="stylesheet" href="css/styles.css?v=20261022-31">
 
   <script>
     (function () {
       var root = document.documentElement;
-      var storedPreference = null;
-
-      try {
-        storedPreference = window.localStorage.getItem('ideal-pisos-motion');
-      } catch (error) {
-        storedPreference = null;
-      }
-
-      try {
-        var requestedMotion = new URLSearchParams(window.location.search).get('motion');
-        if (requestedMotion === 'on' || requestedMotion === 'off') {
-          storedPreference = requestedMotion;
-          try {
-            window.localStorage.setItem('ideal-pisos-motion', requestedMotion);
-          } catch (error) {
-            // Sem localStorage: a escolha ainda vale para esta visita.
-          }
-
-          try {
-            var cleanParams = new URLSearchParams(window.location.search);
-            cleanParams.delete('motion');
-            var cleanQuery = cleanParams.toString();
-            window.history.replaceState(
-              null,
-              '',
-              window.location.pathname + (cleanQuery ? '?' + cleanQuery : '') + window.location.hash
-            );
-          } catch (error) {
-            // Se não for possível limpar a URL, a preferência salva continua valendo.
-          }
-        }
-      } catch (error) {
-        // URLSearchParams indisponível: mantém a preferência existente.
-      }
-
-      // A experiência animada é o padrão do site. O visitante pode reduzir
-      // o movimento pelo controle no rodapé; a escolha fica salva no navegador.
-      var reduced = storedPreference === 'off';
-
       root.classList.add('js');
-      if (reduced) root.classList.add('reduced-motion');
-
-      var reducedStylesheet = document.getElementById('reduced-motion-css');
-      if (reducedStylesheet) {
-        reducedStylesheet.media = reduced ? 'all' : 'not all';
-      }
 
       window.setTimeout(function () {
         if (!root.classList.contains('reveal-ready')) {
@@ -134,11 +88,11 @@
     ================================================================
     GUIA RÁPIDO DE IMAGENS
     ================================================================
-    A galeria já utiliza as fotos reais de instalação de piso elevado.
-    Para trocar uma imagem, substitua o arquivo mantendo o nome:
+    A galeria utiliza as fotos atuais de instalação de piso elevado.
+    Para trocar uma imagem, substitua o arquivo e atualize o nome no HTML:
 
-    assets/images/fotohero.jpg ............... foto principal do hero (atual)
-    assets/images/portfolio/projeto-01.jpg ... galeria (até projeto-07.jpg)
+    assets/images/fotohero.PNG ............... foto principal do hero (atual)
+    assets/images/portfolio/serviço1.jpeg ... galeria (até serviço8.jpeg)
     assets/images/og-ideal-pisos.jpg ......... imagem de compartilhamento (1200x630)
     assets/images/logo.png ................... logo oficial (cabeçalho, sobre e rodapé)
 
@@ -193,7 +147,7 @@
   <main id="conteudo">
     <!-- ============================================================
          HERO
-         FOTO PRINCIPAL: assets/images/fotohero.jpg
+         FOTO PRINCIPAL: assets/images/fotohero.PNG
          Para trocar, substitua o arquivo mantendo o nome e atualize o alt.
          ============================================================ -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
@@ -245,7 +199,7 @@
 
         <div class="hero-media">
           <figure class="hero-figure">
-            <img src="assets/images/fotohero.jpg" alt="Piso elevado em instalação, com placas de piso e pedestais metálicos" width="432" height="512" fetchpriority="high">
+            <img src="assets/images/fotohero.PNG" alt="Piso elevado em instalação, com estrutura metálica e placas de piso" width="459" height="557" fetchpriority="high">
           </figure>
 
           <a class="hero-contact" href="https://wa.me/5511979605845?text=Ol%C3%A1!%20Conheci%20a%20Ideal%20Pisos%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar com a Ideal Pisos pelo WhatsApp">
@@ -408,11 +362,11 @@
 
     <!-- ============================================================
          GALERIA
-         FOTOS REAIS: assets/images/portfolio/projeto-01.jpg até projeto-07.jpg.
-         Para trocar, substitua os arquivos mantendo os nomes e atualize
-         o alt e o data-caption de cada imagem.
+         FOTOS ATUAIS: assets/images/portfolio/serviço1.jpeg até serviço8.jpeg.
+         Todos os cards possuem o mesmo tamanho e acompanham a proporção 3:4
+         das fotografias. Para trocar, substitua os arquivos e atualize o alt.
          ============================================================ -->
-<section class="section gallery" id="galeria" aria-labelledby="galeria-title">
+    <section class="section gallery" id="galeria" aria-labelledby="galeria-title">
       <div class="container">
         <div class="section-head section-head--split section-head--gallery">
           <div data-reveal>
@@ -423,69 +377,221 @@
         </div>
 
         <div class="gallery-grid" data-stagger=".06" data-stagger-variant="clip">
-          <!-- FOTO REAL: projeto-01.jpg -->
           <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — instalação" aria-label="Ampliar imagem de instalação de piso elevado">
-            <img src="assets/images/portfolio/projeto-01.jpg" alt="Piso elevado instalado com placas de acesso e estrutura metálica" width="800" height="600" loading="lazy" decoding="async">
+            <img src="assets/images/portfolio/serviço1.jpeg" alt="Instalação de piso elevado em ambiente amplo" width="1204" height="1600" loading="lazy" decoding="async">
             <span class="gallery-zoom" aria-hidden="true">
               <svg class="icon" viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M11 8v6M8 11h6"/></svg>
             </span>
             <span class="gallery-label" aria-hidden="true">Instalação</span>
           </button>
 
-          <!-- FOTO REAL: projeto-02.jpg -->
-          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — acesso técnico" aria-label="Ampliar imagem de acesso técnico em piso elevado">
-            <img src="assets/images/portfolio/projeto-02.jpg" alt="Detalhe de piso elevado com painel de acesso aberto e ferramentas" width="615" height="410" loading="lazy" decoding="async">
+          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — ambiente corporativo" aria-label="Ampliar imagem de piso elevado em ambiente corporativo">
+            <img src="assets/images/portfolio/serviço2.jpeg" alt="Piso elevado instalado em ambiente corporativo" width="1204" height="1600" loading="lazy" decoding="async">
             <span class="gallery-zoom" aria-hidden="true">
               <svg class="icon" viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M11 8v6M8 11h6"/></svg>
             </span>
-            <span class="gallery-label" aria-hidden="true">Acesso técnico</span>
+            <span class="gallery-label" aria-hidden="true">Corporativo</span>
           </button>
 
-          <!-- FOTO REAL: projeto-03.jpg -->
-          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — pedestais" aria-label="Ampliar imagem de pedestais de piso elevado">
-            <img src="assets/images/portfolio/projeto-03.jpg" alt="Detalhe da instalação de piso elevado com pedestais metálicos" width="714" height="476" loading="lazy" decoding="async">
+          <button class="gallery-item" type="button" data-lightbox data-caption="Acabamento de escada" aria-label="Ampliar imagem de acabamento de escada">
+            <img src="assets/images/portfolio/serviço3.jpeg" alt="Acabamento de escada em obra" width="1204" height="1600" loading="lazy" decoding="async">
             <span class="gallery-zoom" aria-hidden="true">
               <svg class="icon" viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M11 8v6M8 11h6"/></svg>
             </span>
-            <span class="gallery-label" aria-hidden="true">Pedestais</span>
+            <span class="gallery-label" aria-hidden="true">Escada</span>
           </button>
 
-          <!-- FOTO REAL: projeto-04.jpg -->
-          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — estrutura" aria-label="Ampliar imagem da estrutura de piso elevado">
-            <img src="assets/images/portfolio/projeto-04.jpg" alt="Estrutura metálica de piso elevado durante a instalação" width="400" height="300" loading="lazy" decoding="async">
+          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — estrutura" aria-label="Ampliar imagem da estrutura do piso elevado">
+            <img src="assets/images/portfolio/serviço4.jpeg" alt="Estrutura e placas de piso elevado em ambiente amplo" width="1204" height="1600" loading="lazy" decoding="async">
             <span class="gallery-zoom" aria-hidden="true">
               <svg class="icon" viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M11 8v6M8 11h6"/></svg>
             </span>
             <span class="gallery-label" aria-hidden="true">Estrutura</span>
           </button>
 
-          <!-- FOTO REAL: projeto-05.jpg -->
-          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — montagem" aria-label="Ampliar imagem de montagem de piso elevado">
-            <img src="assets/images/portfolio/projeto-05.jpg" alt="Montagem de piso elevado com placas e pedestais" width="600" height="352" loading="lazy" decoding="async">
+          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — infraestrutura" aria-label="Ampliar imagem de infraestrutura sob piso elevado">
+            <img src="assets/images/portfolio/serviço5.jpeg" alt="Cabeamento e infraestrutura sob piso elevado" width="1204" height="1600" loading="lazy" decoding="async">
             <span class="gallery-zoom" aria-hidden="true">
               <svg class="icon" viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M11 8v6M8 11h6"/></svg>
             </span>
-            <span class="gallery-label" aria-hidden="true">Montagem</span>
+            <span class="gallery-label" aria-hidden="true">Infraestrutura</span>
           </button>
 
-          <!-- FOTO REAL: projeto-06.jpg -->
-          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — componentes" aria-label="Ampliar imagem de componentes do piso elevado">
-            <img src="assets/images/portfolio/projeto-06.jpg" alt="Detalhe dos pedestais e componentes do piso elevado" width="480" height="380" loading="lazy" decoding="async">
+          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — acabamento final" aria-label="Ampliar imagem de piso elevado com acabamento final">
+            <img src="assets/images/portfolio/serviço6.jpeg" alt="Piso elevado finalizado em área interna" width="1204" height="1600" loading="lazy" decoding="async">
             <span class="gallery-zoom" aria-hidden="true">
               <svg class="icon" viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M11 8v6M8 11h6"/></svg>
             </span>
-            <span class="gallery-label" aria-hidden="true">Componentes</span>
+            <span class="gallery-label" aria-hidden="true">Acabamento</span>
           </button>
 
-          <!-- FOTO REAL: projeto-07.jpg -->
-          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — ambiente" aria-label="Ampliar imagem de ambiente com piso elevado">
-            <img src="assets/images/portfolio/projeto-07.jpg" alt="Ambiente com piso elevado em fase de instalação" width="360" height="360" loading="lazy" decoding="async">
+          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — área técnica" aria-label="Ampliar imagem de instalação em área técnica">
+            <img src="assets/images/portfolio/serviço7.jpeg" alt="Instalação de piso elevado em área técnica" width="1204" height="1600" loading="lazy" decoding="async">
             <span class="gallery-zoom" aria-hidden="true">
               <svg class="icon" viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M11 8v6M8 11h6"/></svg>
             </span>
-            <span class="gallery-label" aria-hidden="true">Ambiente</span>
+            <span class="gallery-label" aria-hidden="true">Área técnica</span>
+          </button>
+
+          <button class="gallery-item" type="button" data-lightbox data-caption="Piso elevado — acesso técnico" aria-label="Ampliar imagem de acesso técnico ao piso elevado">
+            <img src="assets/images/portfolio/serviço8.jpeg" alt="Acesso técnico aberto em piso elevado" width="1204" height="1600" loading="lazy" decoding="async">
+            <span class="gallery-zoom" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M11 8v6M8 11h6"/></svg>
+            </span>
+            <span class="gallery-label" aria-hidden="true">Acesso técnico</span>
           </button>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VÍDEOS
+         Todos os vídeos são reproduzidos sem áudio.
+         ============================================================ -->
+        <section class="section videos" id="videos" aria-labelledby="videos-title">
+      <div class="container">
+        <div class="section-head section-head--split videos-head">
+          <div data-reveal>
+            <p class="eyebrow eyebrow--light">Vídeos</p>
+            <h2 id="videos-title">A Ideal Pisos <em>em movimento</em>.</h2>
+          </div>
+          <p class="videos-lead" data-reveal="blur" data-reveal-delay=".08">Assista a registros de instalações e detalhes dos nossos serviços. Todos os vídeos são reproduzidos sem áudio.</p>
+        </div>
+
+        <div class="video-grid" data-stagger=".06">
+          <div class="video-card" data-video-card data-video-title="Estrutura metálica" data-video-number="01">
+            <video class="video-card-media" muted playsinline loop preload="none" poster="assets/videos/posters/video8.jpg" src="assets/videos/video8.mp4" width="480" height="864" aria-label="Vídeo: Estrutura metálica"></video>
+            <button class="video-card-control" type="button" data-video-toggle aria-label="Reproduzir vídeo 01: Estrutura metálica" aria-pressed="false">
+              <span class="video-card-play" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                  <path class="video-icon-play" fill="currentColor" d="M8 5v14l11-7z"/>
+                  <path class="video-icon-pause" d="M8 5v14M16 5v14"/>
+                </svg>
+              </span>
+            </button>
+            <div class="video-card-info" aria-hidden="true">
+              <span class="video-card-number">01</span>
+              <span class="video-card-caption">Estrutura metálica</span>
+            </div>
+          </div>
+
+          <div class="video-card" data-video-card data-video-title="Piso elevado em instalação" data-video-number="02">
+            <video class="video-card-media" muted playsinline loop preload="none" poster="assets/videos/posters/video3.jpg" src="assets/videos/video3.mp4" width="480" height="864" aria-label="Vídeo: Piso elevado em instalação"></video>
+            <button class="video-card-control" type="button" data-video-toggle aria-label="Reproduzir vídeo 02: Piso elevado em instalação" aria-pressed="false">
+              <span class="video-card-play" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                  <path class="video-icon-play" fill="currentColor" d="M8 5v14l11-7z"/>
+                  <path class="video-icon-pause" d="M8 5v14M16 5v14"/>
+                </svg>
+              </span>
+            </button>
+            <div class="video-card-info" aria-hidden="true">
+              <span class="video-card-number">02</span>
+              <span class="video-card-caption">Piso elevado em instalação</span>
+            </div>
+          </div>
+
+          <div class="video-card" data-video-card data-video-title="Acabamento de escada" data-video-number="03">
+            <video class="video-card-media" muted playsinline loop preload="none" poster="assets/videos/posters/video2.jpg" src="assets/videos/video2.mp4" width="480" height="864" aria-label="Vídeo: Acabamento de escada"></video>
+            <button class="video-card-control" type="button" data-video-toggle aria-label="Reproduzir vídeo 03: Acabamento de escada" aria-pressed="false">
+              <span class="video-card-play" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                  <path class="video-icon-play" fill="currentColor" d="M8 5v14l11-7z"/>
+                  <path class="video-icon-pause" d="M8 5v14M16 5v14"/>
+                </svg>
+              </span>
+            </button>
+            <div class="video-card-info" aria-hidden="true">
+              <span class="video-card-number">03</span>
+              <span class="video-card-caption">Acabamento de escada</span>
+            </div>
+          </div>
+
+          <div class="video-card" data-video-card data-video-title="Painéis e acabamento" data-video-number="04">
+            <video class="video-card-media" muted playsinline loop preload="none" poster="assets/videos/posters/video6.jpg" src="assets/videos/video6.mp4" width="480" height="864" aria-label="Vídeo: Painéis e acabamento"></video>
+            <button class="video-card-control" type="button" data-video-toggle aria-label="Reproduzir vídeo 04: Painéis e acabamento" aria-pressed="false">
+              <span class="video-card-play" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                  <path class="video-icon-play" fill="currentColor" d="M8 5v14l11-7z"/>
+                  <path class="video-icon-pause" d="M8 5v14M16 5v14"/>
+                </svg>
+              </span>
+            </button>
+            <div class="video-card-info" aria-hidden="true">
+              <span class="video-card-number">04</span>
+              <span class="video-card-caption">Painéis e acabamento</span>
+            </div>
+          </div>
+
+          <div class="video-card" data-video-card data-video-title="Instalação em andamento" data-video-number="05">
+            <video class="video-card-media" muted playsinline loop preload="none" poster="assets/videos/posters/video5.jpg" src="assets/videos/video5.mp4" width="480" height="864" aria-label="Vídeo: Instalação em andamento"></video>
+            <button class="video-card-control" type="button" data-video-toggle aria-label="Reproduzir vídeo 05: Instalação em andamento" aria-pressed="false">
+              <span class="video-card-play" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                  <path class="video-icon-play" fill="currentColor" d="M8 5v14l11-7z"/>
+                  <path class="video-icon-pause" d="M8 5v14M16 5v14"/>
+                </svg>
+              </span>
+            </button>
+            <div class="video-card-info" aria-hidden="true">
+              <span class="video-card-number">05</span>
+              <span class="video-card-caption">Instalação em andamento</span>
+            </div>
+          </div>
+
+          <div class="video-card" data-video-card data-video-title="Pedestais e estrutura" data-video-number="06">
+            <video class="video-card-media" muted playsinline loop preload="none" poster="assets/videos/posters/video4.jpg" src="assets/videos/video4.mp4" width="480" height="864" aria-label="Vídeo: Pedestais e estrutura"></video>
+            <button class="video-card-control" type="button" data-video-toggle aria-label="Reproduzir vídeo 06: Pedestais e estrutura" aria-pressed="false">
+              <span class="video-card-play" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                  <path class="video-icon-play" fill="currentColor" d="M8 5v14l11-7z"/>
+                  <path class="video-icon-pause" d="M8 5v14M16 5v14"/>
+                </svg>
+              </span>
+            </button>
+            <div class="video-card-info" aria-hidden="true">
+              <span class="video-card-number">06</span>
+              <span class="video-card-caption">Pedestais e estrutura</span>
+            </div>
+          </div>
+
+          <div class="video-card" data-video-card data-video-title="Preparação da base" data-video-number="07">
+            <video class="video-card-media" muted playsinline loop preload="none" poster="assets/videos/posters/video7.jpg" src="assets/videos/video7.mp4?v=30" width="480" height="864" aria-label="Vídeo: Preparação da base"></video>
+            <button class="video-card-control" type="button" data-video-toggle aria-label="Reproduzir vídeo 07: Preparação da base" aria-pressed="false">
+              <span class="video-card-play" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                  <path class="video-icon-play" fill="currentColor" d="M8 5v14l11-7z"/>
+                  <path class="video-icon-pause" d="M8 5v14M16 5v14"/>
+                </svg>
+              </span>
+            </button>
+            <div class="video-card-info" aria-hidden="true">
+              <span class="video-card-number">07</span>
+              <span class="video-card-caption">Preparação da base</span>
+            </div>
+          </div>
+
+          <div class="video-card" data-video-card data-video-title="Piso elevado finalizado" data-video-number="08">
+            <video class="video-card-media" muted playsinline loop preload="none" poster="assets/videos/posters/video1.jpg" src="assets/videos/video1.mp4" width="480" height="864" aria-label="Vídeo: Piso elevado finalizado"></video>
+            <button class="video-card-control" type="button" data-video-toggle aria-label="Reproduzir vídeo 08: Piso elevado finalizado" aria-pressed="false">
+              <span class="video-card-play" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" focusable="false">
+                  <path class="video-icon-play" fill="currentColor" d="M8 5v14l11-7z"/>
+                  <path class="video-icon-pause" d="M8 5v14M16 5v14"/>
+                </svg>
+              </span>
+            </button>
+            <div class="video-card-info" aria-hidden="true">
+              <span class="video-card-number">08</span>
+              <span class="video-card-caption">Piso elevado finalizado</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="video-grid-note">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 9 5 5M21 9l-5 5"/></svg>
+          Todos os vídeos são reproduzidos sem áudio.
+        </p>
       </div>
     </section>
 
@@ -783,6 +889,7 @@
             <li><a href="#inicio">Início</a></li>
             <li><a href="#servicos">Serviços</a></li>
             <li><a href="#galeria">Galeria de projetos</a></li>
+            <li><a href="#videos">Vídeos</a></li>
             <li><a href="#sobre">Sobre a empresa</a></li>
             <li><a href="#orcamento">Solicitar orçamento</a></li>
             <li><a href="#contato">Contato</a></li>
@@ -819,19 +926,10 @@
 
       <div class="footer-bottom" data-reveal="up">
         <p>© <span data-year>2026</span> Ideal Pisos Elevados. Todos os direitos reservados.</p>
-        <div class="footer-bottom-actions">
-          <button class="motion-toggle" type="button" data-motion-toggle>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-              <circle cx="12" cy="12" r="3.2"/>
-            </svg>
-            <span data-motion-label>Ativar animações</span>
-          </button>
-          <a class="footer-top" href="#inicio">
-            Voltar ao topo
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
-          </a>
-        </div>
+        <a class="footer-top" href="#inicio">
+          Voltar ao topo
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+        </a>
       </div>
     </div>
   </footer>
@@ -843,25 +941,6 @@
     </svg>
   </a>
 
-  <!-- Controle visível apenas quando o dispositivo ou o navegador prefere menos movimento. -->
-  <div class="motion-prompt" data-motion-prompt>
-    <button class="motion-prompt-action" type="button" data-motion-toggle>
-      <span class="motion-prompt-icon" aria-hidden="true">
-        <svg class="icon" viewBox="0 0 24 24" focusable="false">
-          <path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-          <circle cx="12" cy="12" r="3.2"/>
-        </svg>
-      </span>
-      <span class="motion-prompt-copy">
-        <strong data-motion-label>Ativar animações</strong>
-        <small>Ver a experiência completa do site</small>
-      </span>
-    </button>
-    <button class="motion-prompt-close" type="button" data-motion-dismiss aria-label="Fechar aviso de animações">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
-    </button>
-  </div>
-
   <dialog class="lightbox" id="gallery-lightbox" aria-label="Visualização ampliada da galeria">
     <div class="lightbox-inner">
       <button class="lightbox-close" type="button" aria-label="Fechar visualização" data-lightbox-close>
@@ -871,10 +950,10 @@
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg>
       </button>
       <figure class="lightbox-figure">
-        <img src="assets/images/portfolio/projeto-01.jpg" alt="Piso elevado instalado com placas de acesso e estrutura metálica" width="800" height="600" loading="lazy" decoding="async" data-lightbox-image>
+        <img src="assets/images/portfolio/serviço1.jpeg" alt="Instalação de piso elevado em ambiente amplo" width="1204" height="1600" loading="lazy" decoding="async" data-lightbox-image>
         <figcaption class="lightbox-caption">
           <span data-lightbox-caption>Piso elevado — instalação</span>
-          <span class="lightbox-count" data-lightbox-count>1 / 7</span>
+          <span class="lightbox-count" data-lightbox-count>1 / 8</span>
         </figcaption>
       </figure>
       <button class="lightbox-nav lightbox-next" type="button" aria-label="Próxima imagem" data-lightbox-next>
@@ -883,9 +962,17 @@
     </div>
   </dialog>
 
-  <script src="js/main.js?v=20261022-23" defer></script>
+  <script src="js/main.js?v=20261022-31" defer></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 

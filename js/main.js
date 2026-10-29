@@ -12,7 +12,7 @@
   const skipLink = document.querySelector('.skip-link');
   const mobileNavQuery = window.matchMedia('(max-width: 960px)');
   const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-  let reducedMotion = document.documentElement.classList.contains('reduced-motion');
+  const reducedMotion = false;
 
   const setInert = (element, value) => {
     if (!element) return;
@@ -824,51 +824,85 @@
   }
 
   /* ---------------------------------------------------------------
-     Preferência de animações (ativa/desativa com recarregamento)
+     Seção de vídeos (sempre sem áudio)
      --------------------------------------------------------------- */
 
-  const motionLabel = reducedMotion ? 'Ativar animações' : 'Reduzir animações';
+  const videoCards = Array.from(document.querySelectorAll('[data-video-card]'));
 
-  document.querySelectorAll('[data-motion-label]').forEach((label) => {
-    label.textContent = motionLabel;
-  });
+  if (videoCards.length) {
+    const videos = videoCards
+      .map((card) => card.querySelector('video'))
+      .filter(Boolean);
 
-  document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
-    button.addEventListener('click', () => {
-      try {
-        window.localStorage.setItem('ideal-pisos-motion', reducedMotion ? 'on' : 'off');
-      } catch (error) {
-        // Sem acesso ao localStorage: recarrega usando apenas a preferência do sistema.
-      }
-      window.location.reload();
-    });
-  });
+    const pauseOtherVideos = (currentVideo) => {
+      videos.forEach((video) => {
+        if (video !== currentVideo && !video.paused) video.pause();
+      });
+    };
 
-  const motionPrompt = document.querySelector('[data-motion-prompt]');
+    videoCards.forEach((card) => {
+      const video = card.querySelector('video');
+      const button = card.querySelector('[data-video-toggle]');
+      if (!video || !button) return;
 
-  if (motionPrompt) {
-    let promptDismissed = false;
+      const title = card.dataset.videoTitle || 'instalação da Ideal Pisos';
+      const number = card.dataset.videoNumber || '01';
 
-    try {
-      promptDismissed = window.localStorage.getItem('ideal-pisos-motion-prompt') === 'dismissed';
-    } catch (error) {
-      promptDismissed = false;
-    }
+      const enforceMuted = () => {
+        if (!video.muted || video.volume !== 0) {
+          video.muted = true;
+          video.volume = 0;
+        }
+      };
 
-    if (promptDismissed) motionPrompt.hidden = true;
+      const updateCardState = () => {
+        const isPlaying = !video.paused;
+        card.classList.toggle('is-playing', isPlaying);
+        button.setAttribute('aria-pressed', String(isPlaying));
+        button.setAttribute(
+          'aria-label',
+          `${isPlaying ? 'Pausar' : 'Reproduzir'} vídeo ${number}: ${title}`
+        );
+      };
 
-    const dismissButton = motionPrompt.querySelector('[data-motion-dismiss]');
+      enforceMuted();
+      video.addEventListener('volumechange', enforceMuted);
+      video.addEventListener('play', () => {
+        pauseOtherVideos(video);
+        updateCardState();
+      });
+      video.addEventListener('playing', () => {
+        card.classList.remove('is-loading');
+      });
+      video.addEventListener('pause', () => {
+        card.classList.remove('is-loading');
+        updateCardState();
+      });
+      video.addEventListener('error', () => {
+        card.classList.remove('is-loading');
+      });
 
-    if (dismissButton) {
-      dismissButton.addEventListener('click', () => {
-        motionPrompt.hidden = true;
-        try {
-          window.localStorage.setItem('ideal-pisos-motion-prompt', 'dismissed');
-        } catch (error) {
-          // A preferência de exibição não pôde ser salva; o aviso permanece fechado nesta visita.
+      button.addEventListener('click', () => {
+        enforceMuted();
+
+        if (video.paused) {
+          pauseOtherVideos(video);
+          card.classList.add('is-loading');
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {
+              card.classList.remove('is-loading');
+              updateCardState();
+            });
+          }
+        } else {
+          card.classList.remove('is-loading');
+          video.pause();
         }
       });
-    }
+
+      updateCardState();
+    });
   }
 
   /* ---------------------------------------------------------------
